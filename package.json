@@ -1,0 +1,24 @@
+{
+  "name": "10k-apart-2016",
+  "version": "1.0.0",
+  "description": "10K Apart",
+  "main": "index.js",
+  "dependencies": {
+    "cheerio": "0.22.0",
+    "request": "2.74.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/razh/10k-apart-2016.git"
+  },
+  "author": "razh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/razh/10k-apart-2016/issues"
+  },
+  "homepage": "https://github.com/razh/10k-apart-2016#readme"
+}
