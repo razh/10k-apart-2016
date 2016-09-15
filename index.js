@@ -1,18 +1,26 @@
 /* eslint-env es6 */
 
+const escapeHtml = require('escape-html');
+const express = require('express');
 const request = require('request');
 const cheerio = require('cheerio');
 
-const args = process.argv.slice(2);
+const app = express();
 
-const url = args[0];
+app.get('*', (req, res) => {
+  const url = req.originalUrl.slice(1);
 
-request.get(url, (error, response, body) => {
-  if (error) {
-    console.error(error);
-    return error;
-  }
+  request.get(url, (error, response, body) => {
+    if (error) {
+      res.send(error)
+      return;
+    }
 
-  const $ = cheerio.load(body);
-  console.log($.html());
+    res.send(escapeHtml(body));
+
+    const $ = cheerio.load(body);
+    console.log($('body').html());
+  });
 });
+
+app.listen(process.env.PORT || 3000);
