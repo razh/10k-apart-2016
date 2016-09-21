@@ -108,7 +108,7 @@ exports.Roles = {
 
         return 'radio';
 
-      case 'range'::
+      case 'range':
         return 'slider';
 
       case 'rest':
@@ -242,3 +242,92 @@ exports.Roles = {
   tr: 'row',
   ul: 'list',
 };
+
+
+// https://www.w3.org/TR/wai-aria/roles
+exports.AbstractRoles = [
+  'command',
+  'composite',
+  'input',
+  'landmark',
+  'range',
+  'roletype',
+  'section',
+  'sectionhead',
+  'select',
+  'structure',
+  'widget',
+  'window',
+];
+
+exports.WidgetRoles = [
+  'alert',
+  'alertdialog',
+  'button',
+  'checkbox',
+  'dialog',
+  'gridcell',
+  'link',
+  'log',
+  'marquee',
+  'menuitem',
+  'menuitemcheckbox',
+  'menuitemradio',
+  'option',
+  'progressbar',
+  'radio',
+  'scrollbar',
+  'slider',
+  'spinbutton',
+  'status',
+  'tab',
+  'tabpanel',
+  'textbox',
+  'timer',
+  'tooltip',
+  'treeitem',
+
+  // Composite user interface widgets.
+  'combobox',
+  'grid',
+  'listbox',
+  'menu',
+  'menubar',
+  'radiogroup',
+  'tablist',
+  'tree',
+  'treegrid',
+];
+
+exports.DocumentStructureRoles = [
+  'article',
+  'columnheader',
+  'definition',
+  'directory',
+  'document',
+  'group',
+  'heading',
+  'img',
+  'list',
+  'listitem',
+  'math',
+  'note',
+  'presentation',
+  'region',
+  'row',
+  'rowgroup',
+  'rowheader',
+  'separator',
+  'toolbar',
+];
+
+exports.LandmarkRoles = [
+  'application',
+  'banner',
+  'complementary',
+  'contentinfo',
+  'form',
+  'main',
+  'navigation',
+  'search',
+];
