@@ -1,3 +1,4 @@
 {
+  "ext": "js,json,marko",
   "ignore": ["*.marko.js"]
 }
