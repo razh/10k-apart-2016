@@ -1,11 +1,15 @@
 /* eslint-env es6, node */
 
-const escapeHtml = require('escape-html');
 const express = require('express');
 const request = require('request');
 const cheerio = require('cheerio');
 
+require('marko/express');
+require('marko/node-require').install();
+
 const app = express();
+
+const template = require('./index.marko');
 
 app.get('*', (req, res) => {
   const url = req.originalUrl.slice(1);
@@ -16,10 +20,12 @@ app.get('*', (req, res) => {
       return;
     }
 
-    res.send(escapeHtml(body));
-
     const $ = cheerio.load(body);
-    console.log($('body').html());
+
+    res.marko(template, {
+      body,
+      text: $('body').text(),
+    });
   });
 });
 
