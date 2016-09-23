@@ -23,6 +23,7 @@ app.get('*', (req, res) => {
     const $ = cheerio.load(body);
 
     res.marko(template, {
+      url,
       body,
       text: $('body').text(),
     });
