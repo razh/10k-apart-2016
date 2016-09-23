@@ -9,7 +9,14 @@ require('marko/node-require').install();
 
 const app = express();
 
-const template = require('./index.marko');
+const templates = {
+  index: require('./index.marko'),
+  svg: require('./svg.marko'),
+};
+
+app.use(express.static('public'));
+
+app.get('/svg', (req, res) => res.marko(templates.svg));
 
 app.get('*', (req, res) => {
   const url = req.originalUrl.slice(1);
@@ -22,7 +29,7 @@ app.get('*', (req, res) => {
 
     const $ = cheerio.load(body);
 
-    res.marko(template, {
+    res.marko(templates.index, {
       url,
       body,
       text: $('body').text(),
