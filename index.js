@@ -1,4 +1,4 @@
-/* eslint-env es6 */
+/* eslint-env es6, node */
 
 const escapeHtml = require('escape-html');
 const express = require('express');

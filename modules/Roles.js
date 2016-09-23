@@ -1,5 +1,7 @@
+/* eslint-env es6, node */
+
 function parents(el, callback) {
-  const parent = el.parentNode;
+  let parent = el.parentNode;
 
   while (parent && !callback(parent)) {
     parent = parent.parentNode;
@@ -31,7 +33,7 @@ exports.Roles = {
   body: 'document',
   button: 'button',
   datalist: 'listbox',
-  dd: 'definition,'
+  dd: 'definition',
 
   footer(el) {
     if (el.parentNode.nodeName.toLowerCase() === 'body') {
@@ -215,17 +217,17 @@ exports.Roles = {
 
       return 'cell';
     }
-  }
+  },
 
   textarea: 'textbox',
   tfoot: 'rowgroup',
 
   th(el) {
-    if (th.scope === 'col') {
+    if (el.scope === 'col') {
       return 'colheader';
     }
 
-    if (th.scope === 'row') {
+    if (el.scope === 'row') {
       return 'rowheader';
     }
 
