@@ -20,6 +20,7 @@ app.get('/svg', (req, res) => res.marko(templates.svg));
 
 app.get('*', (req, res) => {
   const url = req.originalUrl.slice(1);
+  const startTime = process.hrtime();
 
   request.get(url, (error, response, body) => {
     if (error) {
@@ -29,9 +30,13 @@ app.get('*', (req, res) => {
 
     const $ = cheerio.load(body);
 
+    const [seconds, nanoseconds] = process.hrtime(startTime);
+    const time = ((seconds * 1e9) + nanoseconds) * 1e-6;
+
     res.marko(templates.index, {
       url,
       body,
+      time,
       text: $('body').text(),
     });
   });
