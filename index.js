@@ -2,10 +2,12 @@
 
 const express = require('express');
 const request = require('request');
-const cheerio = require('cheerio');
+const jsdom = require('jsdom');
 
 require('marko/express');
 require('marko/node-require').install();
+
+const getRoles = require('./modules/getRoles')
 
 const app = express();
 
@@ -28,16 +30,24 @@ app.get('*', (req, res) => {
       return;
     }
 
-    const $ = cheerio.load(body);
+    jsdom.env(body, (jsdomError, window) => {
+      if (jsdomError) {
+        res.send(jsdomError);
+        return;
+      }
 
-    const [seconds, nanoseconds] = process.hrtime(startTime);
-    const time = ((seconds * 1e9) + nanoseconds) * 1e-6;
+      const roles = getRoles(window);
 
-    res.marko(templates.index, {
-      url,
-      body,
-      time,
-      text: $('body').text(),
+      const [seconds, nanoseconds] = process.hrtime(startTime);
+      const time = ((seconds * 1e9) + nanoseconds) * 1e-6;
+
+      res.marko(templates.index, {
+        url,
+        body,
+        time,
+        roles,
+        text: window.document.body.textContent,
+      });
     });
   });
 });
