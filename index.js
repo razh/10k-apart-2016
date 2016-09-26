@@ -16,6 +16,11 @@ const templates = {
   svg: require('./svg.marko'),
 };
 
+function deltaTimeInMs(time) {
+  const [seconds, nanoseconds] = process.hrtime(time);
+  return ((seconds * 1e9) + nanoseconds) * 1e-6;
+}
+
 app.use(express.static('public'));
 
 app.get('/svg', (req, res) => res.marko(templates.svg));
@@ -30,6 +35,8 @@ app.get('*', (req, res) => {
       return;
     }
 
+    const loadTime = deltaTimeInMs(startTime);
+
     jsdom.env(body, (jsdomError, window) => {
       if (jsdomError) {
         res.send(jsdomError);
@@ -37,16 +44,17 @@ app.get('*', (req, res) => {
       }
 
       const roles = getRoles(window);
-
-      const [seconds, nanoseconds] = process.hrtime(startTime);
-      const time = ((seconds * 1e9) + nanoseconds) * 1e-6;
+      const text = window.document.body.textContent;
+      const totalTime = deltaTimeInMs(startTime);
 
       res.marko(templates.index, {
         url,
         body,
-        time,
         roles,
-        text: window.document.body.textContent,
+        text,
+        loadTime,
+        totalTime,
+        parseTime: totalTime - loadTime,
       });
     });
   });

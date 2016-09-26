@@ -36,7 +36,11 @@
 </head>
 <body>
   <h1>${data.url}</h1>
-  <p>Time: ${data.time}ms</p>
+  <ul>
+    <li>Load Time: ${data.loadTime}ms</li>
+    <li>Parse Time: ${data.parseTime}ms</li>
+    <li>Total Time: ${data.totalTime}ms</li>
+  </ul>
 
   <h2>HTML</h2>
   <pre class="pre">${data.body}</pre>
