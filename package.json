@@ -4,13 +4,14 @@
   "description": "10K Apart",
   "main": "index.js",
   "dependencies": {
+    "d3": "4.2.6",
     "express": "4.14.0",
     "jsdom": "9.5.0",
-    "marko": "3.10.1",
+    "marko": "3.11.0",
     "request": "2.75.0"
   },
   "devDependencies": {
-    "eslint": "3.5.0",
+    "eslint": "3.6.1",
     "nodemon": "1.10.2"
   },
   "scripts": {
