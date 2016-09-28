@@ -20,13 +20,13 @@ module.exports = function getRoles(window) {
     NodeFilter.SHOW_ELEMENT
   );
 
-  while (treeWalker.nextNode()) {
+  do {
     const { currentNode } = treeWalker;
     const role = getRole(currentNode);
     if (role) {
       roles.push(role);
     }
-  }
+  } while (treeWalker.nextNode());
 
   return roles;
 };
