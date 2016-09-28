@@ -8,12 +8,14 @@ require('marko/express');
 require('marko/node-require').install();
 
 const getRoles = require('./modules/getRoles')
+const graph = require('./modules/graph');
 
 const app = express();
 
 const templates = {
   index: require('./index.marko'),
   svg: require('./svg.marko'),
+  graph: require('./graph.marko'),
 };
 
 function deltaTimeInMs(time) {
@@ -24,6 +26,15 @@ function deltaTimeInMs(time) {
 app.use(express.static('public'));
 
 app.get('/svg', (req, res) => res.marko(templates.svg));
+
+let document;
+jsdom.env('<body>', (error, window) => document = window.document);
+
+app.get('/graph', (req, res) => {
+  res.marko(templates.graph, {
+    svg: graph(document).innerHTML,
+  });
+});
 
 app.get('*', (req, res) => {
   const url = req.originalUrl.slice(1);

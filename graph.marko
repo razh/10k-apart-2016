@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Graph</title>
+
+  <style>
+    html {
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin: 2rem auto;
+      max-width: 48rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .links line {
+      stroke: #aaa;
+    }
+
+    .nodes circle {
+      stroke: none;
+      stroke-width: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="js-svg-container">
+    $!{data.svg}
+  </div>
+</body>
+</html>
