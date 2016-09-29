@@ -9,6 +9,7 @@ require('marko/node-require').install();
 
 const getRoles = require('./modules/getRoles')
 const graph = require('./modules/graph');
+const createTree = require('./modules/createTree');
 
 const app = express();
 
@@ -27,14 +28,16 @@ app.use(express.static('public'));
 
 app.get('/svg', (req, res) => res.marko(templates.svg));
 
-let document;
-jsdom.env('<body>', (error, window) => document = window.document);
+app.get('/graph', (() => {
+  let document;
+  jsdom.env('<body>', (error, window) => document = window.document);
 
-app.get('/graph', (req, res) => {
-  res.marko(templates.graph, {
-    svg: graph(document).innerHTML,
-  });
-});
+  return (req, res) => {
+    res.marko(templates.graph, {
+      svg: graph(document).innerHTML,
+    });
+  };
+})());
 
 app.get('*', (req, res) => {
   const url = req.originalUrl.slice(1);
@@ -56,6 +59,7 @@ app.get('*', (req, res) => {
 
       const roles = getRoles(window);
       const text = window.document.body.textContent;
+      const tree = createTree(window.document, window.document.body).innerHTML;
       const totalTime = deltaTimeInMs(startTime);
 
       res.marko(templates.index, {
@@ -63,6 +67,7 @@ app.get('*', (req, res) => {
         body,
         roles,
         text,
+        tree,
         loadTime,
         totalTime,
         parseTime: totalTime - loadTime,
